@@ -11,41 +11,48 @@ class HomeController extends Controller
         $session = $request->session();
 
         return view('card')->with([
-            'units' => ['Meter', 'Kilometer', 'Mile', 'Centimeter', 'Millimeter', 'Inch', 'Foot'],
+            'units' => ['Meter', 'Kilometer', 'Mile', 'Centimeter', 'Millimeter', 'Inch', 'Foot', 'Yard'],
             'from' => $session->get('from'),
             'to' => $session->get('to'),
             'val' => $session->get('val'),
             'roundUp' => $session->get('roundUp'),
             'alert' => $session->get('alert'),
-            'res' => $session->get('res')
+            'res' => $session->get('res'),
+            'clear' => $session->get('clear')
         ]);
     }
 
     public function process(Request $request)
     {
-        $from = $request->get('from');
-        $to = $request->get('to');
-        $val = $request->get('value');
-        $roundUp = $request->get('roundUp');
+        if ($request->has('clear')) {
+            return redirect('/')-> with([
+                'val' => ''
+            ]);
+        } else {
+            $from = $request->get('from');
+            $to = $request->get('to');
+            $val = $request->get('value');
+            $roundUp = $request->get('roundUp');
 
-        $request->validate([
-            'value' => 'required|numeric'
-        ]);
+            $request->validate([
+                'value' => 'required|numeric'
+            ]);
 
-        $res = $this->getResult($from, $to, $val);
+            $res = $this->getResult($from, $to, $val);
 
-        if ($roundUp == 'on') {
-            $res = (int)$res;
+            if ($roundUp == 'on') {
+                $res = (int)$res;
+            }
+            $request->flash();
+            return redirect('/')->with([
+                'from' => $from,
+                'to' => $to,
+                'val' => $val,
+                'res' => $res,
+                'alert' => 1,
+                'roundUp' => $roundUp,
+            ]);
         }
-
-        return redirect('/')->with([
-            'from' => $from,
-            'to' => $to,
-            'val' => $val,
-            'res' => $res,
-            'alert' => 1,
-            'roundUp' => $roundUp
-        ]);
     }
 
     public function getResult(String $fromUnit, String $toUnit, float $value)

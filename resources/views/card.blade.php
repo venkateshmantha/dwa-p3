@@ -4,14 +4,14 @@
     <div class='container'>
         <div class='row mt-4'>
             <div class='col-md-8 col-centered'>
-                <div class='card'>
+                <div class='card shadow p-3 mb-3 bg-white rounded'>
                     <h2 class='col-centered'>Length Converter</h2>
                 </div>
             </div>
         </div>
-        <div class='row mt-2'>
+        <div class='row'>
             <div class='col-md-8 col-centered'>
-                <div class='card'>
+                <div class='card shadow p-3 mb-5 bg-white rounded'>
                     <div class='card-body'>
                         <form method='POST' action='/process'>
                             {{ csrf_field() }}
@@ -20,7 +20,7 @@
                                     <label>From</label>
                                     <select name='from' class='form-control'>
                                         @foreach ($units as $unit)
-                                            <option @if (isset($from) && $from == $unit) {{'selected'}} @endif >{{$unit}}</option>
+                                            <option @if (old('from') == $unit) {{'selected'}} @endif >{{$unit}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -28,7 +28,7 @@
                                     <label>To</label>
                                     <select name='to' class='form-control'>
                                         @foreach ($units as $unit)
-                                            <option @if (isset($to) && $to == $unit) {{'selected'}} @endif >{{$unit}}</option>
+                                            <option @if (old('to') == $unit) {{'selected'}} @endif >{{$unit}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -38,13 +38,13 @@
                                    type='text'
                                    name='value'
                                    id='value'
-                                   value='{{ $val ?? ''}}'
-                                   placeholder='Value to convert'>
+                                   value='{{ old('value')}}'
+                                   placeholder='Value'>
                             <label class='mt-4' for="roundup">RoundUp</label>
                             <input type='checkbox'
                                    name='roundUp'
                                    id='roundup'
-                            @if ($roundUp == 'on') {{'checked'}} @endif ><br>
+                            @if (old('roundUp') == 'on') {{'checked'}} @endif ><br>
                             <button type='submit' class='btn btn-light mt-4'>Convert</button>
                             <button name='clear' class='btn btn-dark mt-4'>Clear</button>
                         </form>
