@@ -35,7 +35,7 @@ class HomeController extends Controller
             $roundUp = $request->get('roundUp');
 
             $request->validate([
-                'value' => 'required|numeric'
+                'value' => 'required|numeric|digits_between:0,20'
             ]);
 
             $res = $this->getResult($from, $to, $val);
