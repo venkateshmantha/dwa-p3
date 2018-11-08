@@ -33,20 +33,21 @@
                                     </select>
                                 </div>
                             </div>
-                            <label class='mt-4' for="value">Value to convert</label>
+                            <label class='mt-4' for='value'>Value to convert
+                                <span class='text-danger font-italic'>(* Required)</span></label>
                             <input class='form-control mt-2'
                                    type='text'
                                    name='value'
                                    id='value'
                                    value='{{ old('value')}}'
-                                   placeholder='Value'>
-                            <label class='mt-4' for="roundup">RoundUp</label>
+                                   placeholder='Value' required>
+                            <label class='mt-4' for='roundup'>RoundUp</label>
                             <input type='checkbox'
                                    name='roundUp'
                                    id='roundup'
                             @if (old('roundUp') == 'on') {{'checked'}} @endif ><br>
-                            <button type='submit' class='btn btn-light mt-4'>Convert</button>
-                            <button name='clear' class='btn btn-dark mt-4'>Clear</button>
+                            <button type='submit' class='btn btn-info mt-4'>Convert</button>
+                            <button name='clear' class='btn btn-warning mt-4'>Clear</button>
                         </form>
                         @if(count($errors) > 0)
                             <div class='errors alert alert-danger mt-4'>
