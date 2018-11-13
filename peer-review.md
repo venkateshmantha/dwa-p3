@@ -20,6 +20,7 @@ The idea is to not let users off the website but rather keep them engaged within
 + The inputs take only letters as input and throw an error appropriately for any other combination of input
 + Since the interface uses GET, to refresh/clear the form, one has to manually clear all the inputs to return to home. This could be a pain after many form submits as hitting the back button on browser will take you to the form with the previous inputs.
 + Accessing a page that doesn't exist shows a 404 page
++ Accessing the other available route /moreInfo from the browser leads to a page with the validation errors displayed
 + The title of the page is clickable but it leads to the same page and clears the form
 
 
@@ -27,6 +28,7 @@ The idea is to not let users off the website but rather keep them engaged within
 
 + The separation of concern between Routes and Controller has been handled well
 + Every view except when the dropdown is selected is returned with null values
+Hence the initialization of the variables could have been done just once for brevity
 ```
         $trait =  null;
         $checkbox = null;
@@ -34,7 +36,6 @@ The idea is to not let users off the website but rather keep them engaged within
         $last = null;
         $email =null;
 ```
-This is a little repetitive and could be initialized just once for brevity
 
 ## 4. Code: Views
 
